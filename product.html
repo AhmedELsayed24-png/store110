@@ -1,0 +1,38 @@
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>عرض المنتج</title>
+  <style>
+    body{font-family:Arial;background:#fafafa;padding:25px;}
+    .card{max-width:700px;margin:auto;background:#fff;padding:20px;border-radius:10px;
+          box-shadow:0 2px 8px rgba(0,0,0,.1);}
+    img{width:100%;height:320px;object-fit:cover;border-radius:8px;}
+    .price{color:green;font-weight:bold;font-size:20px;margin:12px 0;}
+    a{color:#0060d0;text-decoration:none;}
+  </style>
+</head>
+<body>
+
+  <a href="/">⬅ العودة للمتجر</a>
+
+  <div class="card" id="product"></div>
+
+<script>
+  async function load(){
+    const id = {{ product_id }};
+    const res = await fetch('/api/product/'+id);
+    const p = await res.json();
+    document.getElementById("product").innerHTML = `
+      <img src="${p.image}">
+      <h2>${p.name}</h2>
+      <div class="price">${p.price} ج.م</div>
+      <p>${p.desc}</p>
+    `;
+  }
+  load();
+</script>
+
+</body>
+</html>
